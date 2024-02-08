@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "539056605908",
+    "project_id": "together-now-53668",
+    "storage_bucket": "together-now-53668.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539056605908:android:497ddb0ef52189fd61c941",
+        "android_client_info": {
+          "package_name": "com.example.together_now_ipd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcYW487AlNWo9XBCKQqh2lQeeHhwpZraQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
