@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:together_now_ipd/Screens/introduction_screen.dart';
-// import 'package:together_now_ipd/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
