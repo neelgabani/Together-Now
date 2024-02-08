@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:together_now_ipd/homepage.dart';
-// import 'package:together_now_ipd/Screens/login_signup/signup_page.dart';
-// import 'package:together_now_ipd/Screens/login_signup/login_page.dart';
 import 'package:together_now_ipd/Auth/login.dart';
 import 'package:together_now_ipd/Auth/signup.dart';
 

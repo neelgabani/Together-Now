@@ -1,4 +1,3 @@
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:together_now_ipd/Screens/get_started.dart';
@@ -14,6 +13,7 @@ class IntroductionScreens extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 8),
         child: IntroductionScreen(
+          animationDuration: 400,
           safeAreaList: const [true, true, true, true],
           globalBackgroundColor: Colors.black,
           pages: [
