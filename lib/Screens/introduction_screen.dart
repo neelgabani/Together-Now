@@ -14,7 +14,10 @@ class IntroductionScreens extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 8),
         child: IntroductionScreen(
           animationDuration: 400,
+          // autoScrollDuration: 5000,
+          // infiniteAutoScroll: true,
           safeAreaList: const [true, true, true, true],
+          scrollPhysics: const NeverScrollableScrollPhysics(),
           globalBackgroundColor: Colors.black,
           pages: [
             PageViewModel(

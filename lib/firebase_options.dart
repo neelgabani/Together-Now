@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -15,6 +16,14 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
+  static String androidApiKey = "";
+  static String iosApiKey = "";
+  static String androidAppId = "";
+  static String iosAppId = "";
+  static String messagingSenderID = "";
+  static String projectID = "";
+  static String storageBucket = "";
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
@@ -49,20 +58,31 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDcYW487AlNWo9XBCKQqh2lQeeHhwpZraQ',
-    appId: '1:539056605908:android:497ddb0ef52189fd61c941',
-    messagingSenderId: '539056605908',
-    projectId: 'together-now-53668',
-    storageBucket: 'together-now-53668.appspot.com',
+  Future getKeys() async {
+    await dotenv.load();
+    androidApiKey = dotenv.get("ANDROID_API_KEY", fallback: "");
+    iosApiKey = dotenv.get("IOS_API_KEY", fallback: "");
+    androidAppId = dotenv.get("ANDROID_APP_ID", fallback: "");
+    iosAppId = dotenv.get("IOS_APP_ID", fallback: "");
+    messagingSenderID = dotenv.get("MESSAGING_SENDER_ID", fallback: "");
+    projectID = dotenv.get("PROJECT_ID", fallback: "");
+    storageBucket = dotenv.get("STORAGE_BUCKET", fallback: "");
+  }
+
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: androidApiKey,
+    appId: androidAppId,
+    messagingSenderId: messagingSenderID,
+    projectId: projectID,
+    storageBucket: storageBucket,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCuuVRhft4sfQHLZOop7A37vlQkXVuB_Zo',
-    appId: '1:539056605908:ios:4cd70fe651f288cf61c941',
-    messagingSenderId: '539056605908',
-    projectId: 'together-now-53668',
-    storageBucket: 'together-now-53668.appspot.com',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: iosApiKey,
+    appId: iosAppId,
+    messagingSenderId: messagingSenderID,
+    projectId: projectID,
+    storageBucket: storageBucket,
     iosBundleId: 'com.example.togetherNowIpd',
   );
 }

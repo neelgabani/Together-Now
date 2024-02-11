@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:together_now_ipd/Screens/introduction_screen.dart';
+// import 'package:together_now_ipd/Screens/introduction_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:together_now_ipd/homepage.dart';
 import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  await DefaultFirebaseOptions().getKeys();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
       //     // scaffoldBackgroundColor: Colors.blueGrey[900],
       //     ),
       debugShowCheckedModeBanner: false,
-      home: IntroductionScreens(),
+      home: HomePage(),
     );
   }
 }
