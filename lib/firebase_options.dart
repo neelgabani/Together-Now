@@ -23,6 +23,7 @@ class DefaultFirebaseOptions {
   static String messagingSenderID = "";
   static String projectID = "";
   static String storageBucket = "";
+  static String iosBundleId = "";
 
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -67,6 +68,7 @@ class DefaultFirebaseOptions {
     messagingSenderID = dotenv.get("MESSAGING_SENDER_ID", fallback: "");
     projectID = dotenv.get("PROJECT_ID", fallback: "");
     storageBucket = dotenv.get("STORAGE_BUCKET", fallback: "");
+    iosBundleId = dotenv.get("IOS_BUNDLE_ID", fallback: "");
   }
 
   static FirebaseOptions android = FirebaseOptions(
@@ -83,6 +85,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: messagingSenderID,
     projectId: projectID,
     storageBucket: storageBucket,
-    iosBundleId: 'com.example.togetherNowIpd',
+    iosBundleId: iosBundleId,
   );
 }
