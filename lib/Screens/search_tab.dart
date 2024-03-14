@@ -45,16 +45,20 @@ class _SearchNavigateState extends State<SearchNavigate> {
         centerTitle: true,
         title: const Text("Volunteers"),
       ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns
-          crossAxisSpacing: 8.0, // Spacing between columns
-          mainAxisSpacing: 8.0, // Spacing between rows
-        ),
-        itemCount: people.length,
-        itemBuilder: (context, index) {
-          return PersonCard(person: people[index]);
-        },
+      
+      body: Column(
+        children: [GridView.builder(
+          
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // Number of columns
+            crossAxisSpacing: 8.0, // Spacing between columns
+            mainAxisSpacing: 8.0, // Spacing between rows
+          ),
+          itemCount: people.length,
+          itemBuilder: (context, index) {
+            return PersonCard(person: people[index]);
+          },
+        )],
       ),
     );
   }

@@ -1,49 +1,127 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// Import any other necessary Firebase packages, such as firebase_auth if needed.
 
-class Warning extends StatefulWidget {
-  const Warning({super.key});
-
-  @override
-  State<Warning> createState() => _WarningState();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(() as Widget);
 }
 
-class _WarningState extends State<Warning> {
-  bool isSOSPressed = false;
+class Warning extends StatelessWidget {
+  const Warning({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.warning,
-          size: 120.0,
-          color: Colors.grey,
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isSOSPressed = !isSOSPressed;
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: isSOSPressed ? Colors.red : Colors.grey,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                'SOS',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Safety App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const SafetyPage(),
     );
+  }
+}
+
+class SafetyPage extends StatefulWidget {
+  const SafetyPage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _SafetyPageState createState() => _SafetyPageState();
+}
+
+class _SafetyPageState extends State<SafetyPage> {
+  final TextEditingController _phoneController = TextEditingController();
+  bool _isRegistering = false;
+
+  void registerPhoneNumber() async {
+    setState(() {
+      _isRegistering = true;
+    });
+    // Here you would usually add some validation for the phone number
+    final String phoneNumber = _phoneController.text;
+
+    // Add the phone number to Firebase - example uses Firestore
+    await FirebaseFirestore.instance.collection('phoneNumbers').add({
+      'number': phoneNumber,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+
+    // Now, you can call your API to send an SMS to the phoneNumber
+    // Replace this print statement with your API call
+    print('An SMS will be sent to $phoneNumber');
+
+    setState(() {
+      _isRegistering = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(), backgroundColor: Colors.grey,
+                padding: const EdgeInsets.all(80),
+              ),
+              child: const Text('SOS', style: TextStyle(fontSize: 24, color: Colors.white)),
+              onPressed: () {
+                // Your SOS functionality here
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black, backgroundColor: Colors.white,
+              ),
+              child: const Text('Inform Kin'),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            controller: _phoneController,
+                            decoration: const InputDecoration(
+                              labelText: 'Enter phone number',
+                            ),
+                            keyboardType: TextInputType.phone,
+                          ),
+                          const SizedBox(height: 20),
+                          if (_isRegistering)
+                            const CircularProgressIndicator()
+                          else
+                            ElevatedButton(
+                              onPressed: registerPhoneNumber,
+                              child: const Text('Register & Send SMS'),
+                            ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+            // ... other buttons ...
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
   }
 }
