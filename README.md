@@ -35,7 +35,7 @@ The application aims to address the challenges faced by the elderly population b
   <img src="images/confirmation.jpg" width="400" style="margin: 10px; border: 2px solid black"/>
 </p>
 <p float="left" style="margin: 10px;">
-  <img src="images/sos.jpg" width="400" style="margin: 10px; border: 2px solid black"/>
+  <img src="images/SOS_message.jpg" width="400" style="margin: 10px; border: 2px solid black"/>
   <img src="images/Chat1.jpg" width="400" style="margin: 10px; border: 2px solid black"/>
 </p>
 <p float="left" style="margin: 10px;">
